@@ -3,9 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Workshop 2</title>
-		<link rel="stylesheet" href="css/styles.css">
+
+        
 	</head>
 	<body>
+
+
 		<h1>Workshop 2: JavaScript BOM</h1>
 		<hr />
 		<p>In this exercise we will practice the use of BOM. Use the lecture-material as a reference guide side by side these exercises. It might also 
@@ -50,11 +53,60 @@
      //Excersise 2: I added the numbers to the lines so it's easier to keep track
      function repeatingText() {
     for (let i = 1; i <= 50; i++) {
-      document.write( "Hello" +i+ "<br>");
+      document.write( "Hello " +i+ "<br>");
     }
   }
 
   repeatingText();
 	</script>	
+     <script>
+ // Laitoin toisen linkin viemään takaisin samalle sivulle, sillä en itse käytä mozillan selainta. Kokeilin index.html sivulla että toimii oikein
+  if (navigator.userAgent.toLowerCase().indexOf("mozilla") > -1 &&
+      navigator.userAgent.toLowerCase().indexOf("chrome") === -1) {
+ 
+    window.location.href = "http://www.mozilla.org";
+  } else {
+   
+    window.location.href = "http://localhost:52330/Workshop2/ws2.html";
+  }
+</script>
+       <script>
+        // Tässä on excersise 4:
+        // Jostain ihmeen syystä koko sivu menee rikki jos laitan sen ylemmäs hmtl sivussa, jotta se ei tulostaisi viestiä sivun pohjalle.
+        // Tämä kummiskin toimii siten että se tulostaa viestin sivun pohjalle enkä keksinyt ratkaisua, joten annan sen nyt olla
+  let Student = confirm("Are you a student?");
+
+  if (Student) {
+    document.write("<h2>Welcome student</h2>");
+  } else {
+    document.write("<h2>Sorry, this page is for students only</h2>");
+  }
+</script>
+<script>
+// Tässä excersise5:
+// Tämä scripti ensiksi tulostaa kuvan 1 ja sen jälkeen satunnaisen kuvan alla näkyvistä kuvalinkeistä sen alle.
+var images = [
+    "http://farm4.staticflickr.com/3691/11268502654_f28f05966c_m.jpg", 
+    "http://farm1.staticflickr.com/33/45336904_1aef569b30_n.jpg", 
+    "http://farm6.staticflickr.com/5211/5384592886_80a512e2c9.jpg"
+];
+
+
+document.write('<img src="' + images[0] + '" alt="Image 1">');
+
+
+function ShowRandomImage() {
+  
+    var randomIndex = Math.floor(Math.random() * images.length);
+    
+    document.write('<br><img src="' + images[randomIndex] + '" alt="Random Image">');
+}
+
+ShowRandomImage();
+
+// Kaikki näyttäisi nyt toimivan ainakin jollain tapaa. Kokeilen ehkä vielä myöhemmin korjata html sivun asettelun.
+// En myös tehnyt css tiedostoa, mikä voi myös hyvinkin vaikuttaa miksi sivu saattaa niin helposti hajota, mutta uskoisin kyseessä olevan document.write komennot.
+
+</script>
 	</body>
 </html>
