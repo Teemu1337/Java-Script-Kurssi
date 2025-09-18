@@ -1,1 +1,1 @@
-Tässä workshopissa opettelen käyttämään BOM ja DOM, sekä laittamaan javascript koodin omaan script kansioon.
+Tässä workshopissa opettelen käyttämään BOM ja DOM, sekä käyttämään JavaScriptiä itse html koodissa selaimen sijaan.
