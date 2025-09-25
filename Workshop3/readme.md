@@ -1,0 +1,1 @@
+Tein kaksi workshop 3 html tiedostoa. Ws3.html on täysin itse pähkäilemäni ja ws3complete.html on tekoälyä hyödyntäen tehty. En saanut ihan kaikkia tehtäviä pelkästään itse pähkäiltyä niin tein tuon ws3complete tiedoston, jossa käytin tekoälyä ja koitin sitä kautta ymmärtää miten tehtävän voisi myös ratkaista ja muokkailin hieman itse myös koodia ja testailin miten se toimii.

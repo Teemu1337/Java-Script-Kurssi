@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Workshop 3</title>
+        <link rel="stylesheet" href="styles.css">
+       
+       <script>
+        // En saanut ekaa tehtävää toimimaan, mutta kun kysyin chatgptltä sain tiedoksi että jos laittaa koodin tuon koodirimpsun sisään niin se korjaa sen ja niinhän se teki
+        // Siinä taisi olla joku ongelma DOM:in kanssa, sillä scripti oli headissä ja kun laitoin koodin tämän sisään niin se korjasi. Täytyy pitää tämä mielessä tulevaisuudessa.
+document.addEventListener("DOMContentLoaded", function() {
+  // exercise1
+
+document.getElementById("btnAlert")?.addEventListener("click", showAlert);
+document.getElementById("btnTable")?.addEventListener("click", showTable);
+document.getElementById("btnGeo")?.addEventListener("click", getLocation);
+
+// button 1
+function showAlert() {
+  alert("You clicked me! " + new Date());
+}
+
+// button 2
+function showTable() {
+  document.write(`
+    <table border="1" cellpadding="5" cellspacing="0">
+      <tr>
+        <th>Name</th><th>Position</th><th>Salary</th>
+      </tr>
+      <tr><td>Tiger Nixon</td><td>System Architect</td><td>$320,800</td></tr>
+      <tr><td>Garrett Winters</td><td>Accountant</td><td>$170,750</td></tr>
+      <tr><td>Ashton Cox</td><td>Junior Technical Author</td><td>$86,000</td></tr>
+      <tr><td>Cedric Kelly</td><td>Senior Javascript Developer</td><td>$433,060</td></tr>
+      <tr><td>Airi Satou</td><td>Accountant</td><td>$162,700</td></tr>
+    </table>
+  `);
+}
+
+// button 3
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      console.log("Latitude:", lat, "Longitude:", lon);
+      document.body.innerHTML += `<p>Latitude: ${lat}, Longitude: ${lon}</p>`;
+    }, function(error) {
+      console.error("Error getting location:", error);
+      document.body.innerHTML += `<p>Unable to retrieve location.</p>`;
+    });
+  } else {
+    console.log("Geolocation not supported.");
+    document.body.innerHTML += `<p>Geolocation not supported.</p>`;
+  }
+}
+  // exercise 2
+  const ex2Heading = document.querySelector("h2:nth-of-type(2)");
+
+  ex2Heading.addEventListener("mouseover", function() {
+    console.log("Stepped over my a mouse!");
+  });
+
+  ex2Heading.addEventListener("mouseout", function() {
+    alert("Bye bye mouse!");
+  });
+
+  // exercise 3
+  
+  const textarea = document.getElementById("textdata");
+  const charCount = document.getElementById("charcount");
+  const form = document.querySelector("form");
+  let keyPresses = 0;
+
+  textarea.addEventListener("focus", function() {
+    charCount.textContent = "Please fill in the form with proper data.";
+    textarea.style.backgroundColor = "#ffffcc"; // light yellow
+  });
+
+  
+  textarea.addEventListener("keydown", function() {
+    keyPresses++;
+    charCount.textContent = "Key presses: " + keyPresses;
+  });
+
+ 
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent form reload
+    if (textarea.value.trim() === "") {
+      alert("Textarea is empty! Please fill in the form.");
+    } else {
+      alert("Form submitted with data: " + textarea.value);
+    }
+  });
+
+ // exercise 4
+  const coordsDiv = document.getElementById("coordinates");
+
+  coordsDiv.addEventListener("mousemove", function(event) {
+    const x = event.clientX;
+    const y = event.clientY;
+    console.log("X:", x, "Y:", y);
+    coordsDiv.innerHTML = `X: ${x}, Y: ${y}`;
+  });
+});
+        </script>
+
+
+    </head>
+    <body class="ws3">
+        <h1>Workshop 3: JavaScript Events</h1>
+        <hr />
+        <p>In this exercise we will practice the use of JavaScript events. Use the lecture-material as a reference guide side by side with these exercises. It might also be a good idea to save the lines of code you write during the exercises for later use.</p>
+        <hr/>
+        <h2>Exercise 1</h2>
+        <p>Below you will see three buttons. Edit the source code and add an onClick-events to these buttons.</p>
+        <p>
+         <button id="btnAlert">Click me</button>
+ <button id="btnTable">Show table</button>
+<button id="btnGeo">Geolocation</button>
+        </p>
+
+        <ol>
+          <li>The first button should open an alert-button, which will say "You clicked me!" </li>
+          <li> When you see the button working, add the current date after the text by using the Date() -function.</li>
+          <li>The second button should call a function called showTable()". ShowTable function should output a simple HTML-table (below) to the page. Use document.write to print data. Feel free to modify the data on the table.</li>
+        </ol>
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>$320,800</td>
+                </tr>
+                <tr>
+                    <td>Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>$170,750</td>
+                </tr>
+                <tr>
+                    <td>Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>$86,000</td>
+                </tr>
+                <tr>
+                    <td>Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>$433,060</td>
+                </tr>
+                <tr>
+                    <td>Airi Satou</td>
+                    <td>Accountant</td>
+                    <td>$162,700</td>
+                </tr>              
+            </tbody>
+        </table>
+        <ol start="4">
+            <li>The last button should check Geolocation of the user, and output it to the console and to the page. Note: Some browsers might not allow you to do this. Try different browsers if you get errors.</li>
+        </ol>
+        <hr/>
+        <h2>Exercise 2</h2>
+        <ul>
+            <li>Add an&nbsp;onMouseOver event on the&nbsp;Heading "Exercise 2" of this page.&nbsp;It should&nbsp;fire when the users mouse is moved 
+        over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
+            <li>Add another event, which will fire then the mouse leaves the Exercise 2 -heading. This time show an alert window to the user saying: "Bye bye mouse!"</li>
+        </ul>
+        <hr/>
+        <h2>Exercise 3</h2>
+        <p>Below you will see a simple form.</p>
+        <ul>
+          <li>Add onfocus -event to the&nbsp;textarea below. When the user enters the textarea, it should show a text saying: "Please fill in the form with proper data.". You can try modifying the background color of the box as well. &nbsp;</li>
+          <li>Try to use onkeydown -event on the textarea. It should calculate the number of keypresses and output them on the screen. Could you think other smart ways to use it?</li>
+          <li>When the form button is clicked, check if the textarea is empty. Notify the user with appropriate message. HINT: You can access the Textarea using the following command:   <i>document.getElementById("textdata").value</i>. We will study the forms deeper in Workshops 4 and 5.</li>
+        </ul>
+        <form>
+            <textarea id="textdata"></textarea><br>
+            <span id="charcount"></span>
+            <button>Send me</button>
+        </form>
+        <hr/>
+        <h2>Exercise 4</h2>
+        <div id="coordinates"></div>
+        <p>Add onMouseMove -event to the DIV-element above. When you move mouse over the DIV (rectangle) the program should output the coordinates of your pointer. Try first outputting to the console using console.log.</p>
+        <p> When the program is working, you can try outputting the text on the H2 element with an id "coords" the box</p> 
+        <p>HINT: You need to use document.getElementById("coordinates").innerHTML to achieve this.</p>
+    </body>
+</html>
+
