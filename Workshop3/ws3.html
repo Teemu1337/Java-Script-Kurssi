@@ -5,7 +5,7 @@
         <title>Workshop 3</title>
         <link rel="stylesheet" href="styles.css">
         <script>
-
+document.addEventListener("DOMContentLoaded", function() {
         function showTable() {
             document.write(`
     <table border="1" cellpadding="5" cellspacing="0">
@@ -49,8 +49,40 @@ function showError(error) {
             alert("Tuntematon virhe.");
             break;
     } }
+let keyPressCount = 0;
+
+function showFocusMessage() {
+  const textarea = document.getElementById("textdata");
+  textarea.style.backgroundColor = "#ffffcc"; 
+  document.getElementById("focusMessage").innerText = "Please fill in the form with proper data.";
+}
+
+
+function countKeys() {
+  keyPressCount++;
+  document.getElementById("charcount").innerText = keyPressCount;
+}
+ 
+ 
+  const box = document.getElementById("coordinates");
+  const coordsHeading = document.getElementById("coords");
+
+  box.onmousemove = function(event) {
+
+    const x = event.offsetX;
+    const y = event.offsetY;
+
+
+    console.log("X: " + x + ", Y: " + y);
+
+    coordsHeading.innerHTML = "Exercise 4 - X: " + x + ", Y: " + y;
+  };
 
  
+  box.onmouseleave = function() {
+    coordsHeading.innerHTML = "Exercise 4";
+  };
+});
         </script>
     </head>
     <body class="ws3">
@@ -126,16 +158,17 @@ function showError(error) {
           <li>Try to use onkeydown -event on the textarea. It should calculate the number of keypresses and output them on the screen. Could you think other smart ways to use it?</li>
           <li>When the form button is clicked, check if the textarea is empty. Notify the user with appropriate message. HINT: You can access the Textarea using the following command:   <i>document.getElementById("textdata").value</i>. We will study the forms deeper in Workshops 4 and 5.</li>
         </ul>
-        <form>
-    <textarea onfocus="write('Please fill in the form with proper data')" 
-              onkeydown="countKeys(event)"></textarea><br>
-    <span id="charcount">0</span> characters typed<br>
-    <button type="submit">Send me</button>
-</form>
+     <form id="myForm">
+            <textarea id="textdata" onfocus="showFocusMessage()" onkeydown="countKeys()"></textarea><br>
+
+            <span id="charcount">0</span> characters typed<br>
+            <span id="focusMessage"></span><br>
+            <button type="submit">Send me</button>
+        </form>
 
         <hr/>
-        <h2>Exercise 4</h2>
-        <div id="coordinates"></div>
+       <h2 id="coords">Exercise 4</h2>
+        <div id="coordinates" style="width:300px; height:200px; border:2px black; background-color:lightgrey;"></div>
         <p>Add onMouseMove -event to the DIV-element above. When you move mouse over the DIV (rectangle) the program should output the coordinates of your pointer. Try first outputting to the console using console.log.</p>
         <p> When the program is working, you can try outputting the text on the H2 element with an id "coords" the box</p> 
         <p>HINT: You need to use document.getElementById("coordinates").innerHTML to achieve this.</p>
