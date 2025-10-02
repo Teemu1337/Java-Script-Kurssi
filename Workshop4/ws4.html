@@ -4,13 +4,137 @@
 		<title>Workshop 4</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="css/styles.css">
-        <script>
+  <script>
+function changeHeading() {
+  const heading = document.querySelector("h1");
+  if (heading) heading.textContent = "Modified Heading!";
+}
 
-  function changeHeading() {
-    let heading = document.querySelector("h1");
-    heading.textContent = "Modified Heading!";
+function secondButton() {
+  const exercise2Heading = document.querySelector("h2:nth-of-type(2)");
+  if (exercise2Heading) {
+    exercise2Heading.style.fontSize = "25px";
+    exercise2Heading.style.color = "white";
+    exercise2Heading.style.fontStyle = "italic";
+    exercise2Heading.style.backgroundColor = "red";
   }
-  </script>
+}
+
+function addParagraph() {
+  const paragraphs = document.querySelectorAll("p");
+  if (paragraphs.length >= 4) {
+    const newP = document.createElement("p");
+    newP.innerHTML = '<em>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit."</em><br><img src="https://images.icon-icons.com/2699/PNG/512/netflix_logo_icon_170919.png" width="100" alt="logo">';
+    paragraphs[3].insertAdjacentElement("afterend", newP);
+    document.body.style.backgroundColor = "#f0f0f0";
+  }
+}
+
+function hide() {
+  const el = document.getElementById("me");
+  if (el) el.style.display = "none";
+}
+
+function showMe(box) {
+  const me = document.getElementById("me");
+  if (me) me.style.display = box.checked ? "block" : "none";
+}
+
+function surprise(box) {
+  const elements = document.getElementsByClassName("surprise");
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].style.fontSize = box.checked ? "20px" : "";
+  }
+}
+function carSelectChange(select) {
+  const carImage = document.getElementById("carimage");
+  alert("You selected: " + select.value);
+
+  switch (select.value) {
+    case "BMW":
+      carImage.src = "https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png";
+      break;
+    case "Audi":
+      carImage.src = "https://dsu2f16ugr2z8.cloudfront.net/960x600,fit/autotalliprodmedia/images/netweels/Audi/A6%20e-tron/2025/981566df-3b8b-44de-a4a5-f31fc4106659.jpg"; 
+      break;
+    case "Mercedes":
+      carImage.src = "https://www.epressi.com/media/userfiles/155568/1696412845/lianapressfile-1696414200791.jpg"; 
+      break;
+    case "Volvo":
+      carImage.src = "https://dsu2f16ugr2z8.cloudfront.net/334x210,fit/autotalliprodmedia/images/netweels/Volvo/XC90/2025/97351563-41d9-4683-a3ea-50f45a3b006d.jpg"; 
+      break;
+  }
+}
+
+function addBorder(img) {
+  img.style.border = "5px solid blue";
+}
+
+function removeBorder(img) {
+  img.style.border = "none";
+}
+
+function changePosition() {
+  const img = document.getElementById("carimage");
+  img.style.position = "relative"; 
+  img.style.left = "200px";
+  img.style.top = "500px";
+}
+
+
+let pos = 0;        
+let direction = 1;  
+
+function doMove() {
+  const img = document.getElementById("carimage");
+  img.style.position = "relative";
+  pos += 10 * direction;
+  img.style.left = pos + "px";
+
+
+  if (pos > 300 || pos < 0) direction *= -1;
+}
+
+let opacity = 1;
+
+function fadeOut() {
+  const img = document.getElementById("carimage");
+  opacity -= 0.05;  
+  if (opacity < 0) opacity = 0;
+  img.style.opacity = opacity;
+}
+
+
+function remove() {
+  const img = document.getElementById("carimage");
+  if (img) img.remove();
+}
+function insertRows() {
+  const table = document.getElementById("data").getElementsByTagName('tbody')[0];
+  
+
+  const name = document.getElementById("textfield").value || "John Doe";
+  const position = document.getElementById("textfield2").value || "Unknown";
+  const salary = document.getElementById("textfield3").value || "$0";
+
+ 
+  const newRow = table.insertRow();
+
+  const cell1 = newRow.insertCell(0);
+  const cell2 = newRow.insertCell(1);
+  const cell3 = newRow.insertCell(2);
+
+ 
+  cell1.textContent = name;
+  cell2.textContent = position;
+  cell3.textContent = salary;
+
+
+  document.getElementById("textfield").value = "";
+  document.getElementById("textfield2").value = "";
+  document.getElementById("textfield3").value = "";
+}
+</script>
 	</head>
 	<body class="ws4">
 		<h1>Workshop 4: DOM Scripting</h1>
@@ -22,8 +146,8 @@
 		<p>&nbsp;Below you will see three buttons. Edit the source code and add an onClick-events to these buttons. Use Developer Console to find the </p>
 		<p>
 		  <button onclick="changeHeading();">Button 1</button>
-		  <button onclick="secondButton">Button 2</button>
-		  <button onclick="">Button 3</button>
+		  <button onclick="secondButton()">Button 2</button>
+		  <button onclick="addParagraph()">Button 3</button>
 		</p>
 
 		<ul>
@@ -39,16 +163,16 @@
 		<p>
 			<label>
 				<input onchange="hide()" name="CheckboxGroup1" type="checkbox" id="CheckboxGroup1_0" title="Actions" value="1">
-				Hide me (using hide()-function in html)
+				Hide me 
 			</label>
 			<br>
 			<label>
-				<input type="checkbox" name="CheckboxGroup1" value="2" id="CheckboxGroup1_1">
-				Show me (using dynamically added event listener)
+				<input onchange="showMe(this)" type="checkbox" name="CheckboxGroup1" value="2" id="CheckboxGroup1_1">
+				Show me
 			</label>
 			<br>
 			<label>
-				<input type="checkbox" name="CheckboxGroup1" value="3" id="CheckboxGroup1_2"> 
+				 <input onchange="surprise(this)" type="checkbox" name="CheckboxGroup1" value="3" id="CheckboxGroup1_2"> 
 				<span id="surpise">Surprise</span>
 			</label>
 		</p>
@@ -67,15 +191,21 @@
 				<li>When you have accomplished the above, change the image (id=&quot;carimage&quot;) below based on the users choice on the pulldown menu below. Find appropriate images from the web.
 			</ul>
 		  <p>Select a new car from the list.</p>
-		  <select name="mySelect" id="mySelect" onchange="">
-			<option value="BMW">BMW         
+		  <select name="mySelect" id="mySelect" onchange="carSelectChange(this)">
+			<option value="BMW">BMW     
 			<option value="Audi">Audi
 			<option value="Mercedes">Mercedes
 			<option value="Volvo">Volvo
 		  </select>
 		  <br>
 		  <br>
-		<img alt="" onmouseover="" onmouseout="" style="left: 0px; opacity: 1;" src="https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png" width="400" id="carimage"/>
+		<img id="carimage" 
+     src="https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png" 
+     width="400" 
+     alt="Car Image"
+     onmouseover="addBorder(this)" 
+     onmouseout="removeBorder(this)"
+     style="position: relative; left: 0px; opacity: 1;">
 		<hr/>
 		<h2>Exercise 4: Moving things around</h2>
 		<ul>
